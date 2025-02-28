@@ -41,12 +41,15 @@ export function isCorrect(question: Question, answer: string): boolean {
  * any answer is valid. But for a `multiple_choice_question`, the `answer` must
  * be exactly one of the options.
  */
+
+/* looked for another option to complete this as I was getting a linter error when trying to
+compare literal values of question.type and question type being a multiple choice answer.
+*/
 export function isValid(question: Question, answer: string): boolean {
-    return (
-        question.type === "short_answer_question" ||
-        (question.type === "multiple_choice_question" &&
-            question.options.includes(answer))
-    );
+    if ((question.type as string) === "short_answer_question") {
+        return true;
+    }
+    return question.options.includes(answer);
 }
 
 /**
